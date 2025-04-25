@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Docker
+*.env
+docker-compose.override.yml
+
+# Kubernetes
+*.yaml.swp
+
+# Node
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# Others
+.env
+
