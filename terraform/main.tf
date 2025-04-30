@@ -18,6 +18,12 @@ resource "aws_instance" "devops_ec2" {
 
   user_data = <<-EOF
               #!/bin/bash
-              echo "Hello from DevOps EC2" > /home/ec2-user/hello.txt
+              yum update -y
+              amazon-linux-extras install docker -y
+              systemctl enable docker
+              systemctl start docker
+              usermod -aG docker ec2-user
+              sleep 10
+              docker run -d -p 80:80 nginx
               EOF
 }
