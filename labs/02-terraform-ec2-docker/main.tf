@@ -26,4 +26,4 @@ usermod -aG docker ec2-user
 sleep 10
 docker run -d -p 80:80 nginx
 EOF
-}
+}# test CI
