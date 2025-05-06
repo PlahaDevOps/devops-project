@@ -1,17 +1,13 @@
-# Devops Project Lab
+	# Devops Project Lab
 
 
 This repository contains hands-on DevOps labs and configurations as I learn and practice key DevOps tools and workflows.
 
 ---
 
-## 📦 Docker
+## Labs
 
-### 1. Simple Flask App (`docker/simple-web-app/`)
-- Build and run a minimal Flask app using Docker
-- Learn Dockerfile basics, port mapping, image build/run
-
-```bash
-cd docker/simple-web-app
-docker build -t flask-app .
-docker run -p 5050:5000 flask-app
+- [01 Docker Basics](labs/01-docker-basics)  
+- [02 Terraform EC2 + Docker](labs/02-terraform-ec2-docker)  
+- [03 Kubernetes Intro](labs/03-k8s-intro)  
+- [04 CI/CD Pipelines](labs/04-ci-cd-pipelines)
