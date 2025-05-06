@@ -1,0 +1,41 @@
+name: Terraform CI
+
+on:
+  pull_request:
+    paths:
+      - 'labs/02-terraform-ec2-docker/**'
+
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.11.3
+      - name: terraform fmt check
+        working-directory: labs/02-terraform-ec2-docker
+        run: terraform fmt -check
+      - name: terraform validate
+        working-directory: labs/02-terraform-ec2-docker
+        run: terraform validate
+
+  plan:
+    needs: fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+      - name: terraform init & plan
+        working-directory: labs/02-terraform-ec2-docker
+        run: |
+          terraform init -input=false
+          terraform plan -out=tfplan
+      - name: Upload plan
+        uses: actions/upload-artifact@v3
+        with:
+          name: tfplan
+          path: labs/02-terraform-ec2-docker/tfplan
+
