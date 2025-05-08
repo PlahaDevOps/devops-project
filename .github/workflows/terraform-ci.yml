@@ -48,7 +48,7 @@ jobs:
           terraform plan -out=tfplan
 
       - name: Upload plan
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: tfplan
           path: labs/02-terraform-ec2-docker/tfplan
