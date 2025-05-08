@@ -7,35 +7,48 @@ on:
 
 jobs:
   fmt:
+    name: fmt, init, & validate
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.11.3
+
       - name: terraform fmt check
         working-directory: labs/02-terraform-ec2-docker
         run: terraform fmt -check
+
+      - name: terraform init (no backend)
+        working-directory: labs/02-terraform-ec2-docker
+        run: terraform init -backend=false -input=false
+
       - name: terraform validate
         working-directory: labs/02-terraform-ec2-docker
         run: terraform validate
 
   plan:
+    name: plan
     needs: fmt
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.11.3
+
       - name: terraform init & plan
         working-directory: labs/02-terraform-ec2-docker
         run: |
-          terraform init -input=false
+          terraform init -backend=false -input=false
           terraform plan -out=tfplan
+
       - name: Upload plan
         uses: actions/upload-artifact@v3
         with:
           name: tfplan
           path: labs/02-terraform-ec2-docker/tfplan
-
