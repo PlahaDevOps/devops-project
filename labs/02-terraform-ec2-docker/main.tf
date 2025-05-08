@@ -3,8 +3,9 @@ provider "aws" {
 }
 
 resource "aws_key_pair" "devops_key" {
-  key_name   = "devops-key"
-  public_key = file("~/.ssh/devops-key.pub")
+  key_name = "devops-key"
+  # Load the public key from this module folder (ensure devops-key.pub exists here)
+  public_key = file("${path.module}/devops-key.pub")
 }
 
 resource "aws_instance" "devops_ec2" {
@@ -27,3 +28,8 @@ sleep 10
 docker run -d -p 80:80 nginx
 EOF
 }
+
+output "public_ip" {
+  value = aws_instance.devops_ec2.public_ip
+}
+
