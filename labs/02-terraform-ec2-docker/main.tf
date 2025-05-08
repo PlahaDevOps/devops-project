@@ -9,9 +9,9 @@ resource "aws_key_pair" "devops_key" {
 }
 
 resource "aws_instance" "devops_ec2" {
-  ami                    = var.ami_id
-  instance_type          = var.instance_type
-  key_name               = aws_key_pair.devops_key.key_name
+  ami           = var.ami_id
+  instance_type = var.instance_type
+  key_name      = aws_key_pair.devops_key.key_name
 
   tags = {
     Name = "DevOps-EC2"
