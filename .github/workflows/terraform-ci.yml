@@ -21,9 +21,10 @@ jobs:
         working-directory: labs/02-terraform-ec2-docker
         run: terraform fmt -check
 
-      - name: terraform init (no backend)
+      - name: terraform init
         working-directory: labs/02-terraform-ec2-docker
-        run: terraform init -backend=false -input=false
+        run: terraform init -input=false
+
 
       - name: terraform validate
         working-directory: labs/02-terraform-ec2-docker
