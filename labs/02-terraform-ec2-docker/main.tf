@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_key_pair" "devops_key" {
-  key_name   = "devops-key"
+  key_name = "devops-key"
   # Load the public key from this module folder (ensure devops-key.pub exists here)
   public_key = file("${path.module}/devops-key.pub")
 }
