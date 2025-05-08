@@ -30,3 +30,4 @@ node_modules/
 # Others
 .env
 
+labs/02-terraform-ec2-docker/tfplan
