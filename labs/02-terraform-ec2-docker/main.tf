@@ -3,8 +3,7 @@ provider "aws" {
 }
 
 resource "aws_key_pair" "devops_key" {
-  key_name = "devops-key"
-  # Load the public key from this module folder (ensure devops-key.pub exists here)
+  key_name   = "devops-key"
   public_key = file("${path.module}/devops-key.pub")
 }
 
@@ -27,10 +26,15 @@ usermod -aG docker ec2-user
 sleep 10
 docker run -d -p 80:80 nginx
 EOF
+
 }
+
+resource "aws_eip" "devops_eip" {
+  domain   = "vpc"
+  instance = aws_instance.devops_ec2.id
+}
+
 
 output "public_ip" {
-  value = aws_instance.devops_ec2.public_ip
+  value = aws_eip.devops_eip.public_ip
 }
-
-# trigger deploy
