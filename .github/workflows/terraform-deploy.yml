@@ -16,14 +16,30 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
-      - name: terraform init & apply
+        with:
+          terraform_version: 1.11.3
+
+      - name: Initialize Terraform backend
         working-directory: labs/02-terraform-ec2-docker
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: terraform init -input=false
+
+      - name: Import existing SSH keypair
+        working-directory: labs/02-terraform-ec2-docker
+        env:
+          AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          terraform init -input=false
-          terraform apply -auto-approve
+          terraform import aws_key_pair.devops_key devops-key || echo "Keypair already in state"
 
+      - name: Terraform apply
+        working-directory: labs/02-terraform-ec2-docker
+        env:
+          AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: terraform apply -auto-approve
