@@ -4,44 +4,52 @@ on:
   push:
     branches:
       - main
-      paths:
+    paths:
       - 'labs/02-terraform-ec2-docker/**'
   workflow_dispatch:
 
 jobs:
-  apply:
+  lint-workflows:
+    name: Lint workflows
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Lint workflow files
+        uses: rhysd/actionlint@v1
+
+  deploy:
     name: Deploy
+    needs: lint-workflows
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region:            us-east-1
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.11.3
 
-      - name: Initialize Terraform backend
+      - name: Terraform init
         working-directory: labs/02-terraform-ec2-docker
-        env:
-          AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: terraform init -input=false
 
       - name: Import existing SSH keypair
         working-directory: labs/02-terraform-ec2-docker
-        env:
-          AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           terraform import aws_key_pair.devops_key devops-key || echo "Keypair already in state"
 
-      - name: Terraform apply
+      - name: Apply Terraform configuration
         working-directory: labs/02-terraform-ec2-docker
-        env:
-          AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: terraform apply -auto-approve
