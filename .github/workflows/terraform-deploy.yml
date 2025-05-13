@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Lint workflow files
-        uses: rhysd/actionlint@v1
+        uses: rhysd/actionlint@v1.6.25
 
   deploy:
     name: Deploy
