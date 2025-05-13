@@ -41,15 +41,14 @@ jobs:
         with:
           terraform_version: 1.11.3
 
+      - name: Write ssh_public_key to terraform.tfvars
+        working-directory: labs/02-terraform-ec2-docker
+        run: echo 'ssh_public_key = "${{ secrets.SSH_PUBLIC_KEY }}"' > terraform.tfvars
+
       - name: Terraform init
         working-directory: labs/02-terraform-ec2-docker
         run: terraform init -input=false
 
-      - name: Import existing SSH keypair
-        working-directory: labs/02-terraform-ec2-docker
-        run: |
-          terraform import aws_key_pair.devops_key devops-key || echo "Keypair already in state"
-
       - name: Apply Terraform configuration
         working-directory: labs/02-terraform-ec2-docker
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-
