@@ -51,4 +51,4 @@ jobs:
 
       - name: Apply Terraform configuration
         working-directory: labs/02-terraform-ec2-docker
-        run: terraform apply -auto-
+        run: terraform apply -auto-approve
