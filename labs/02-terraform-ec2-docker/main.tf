@@ -4,9 +4,12 @@ provider "aws" {
 
 resource "aws_key_pair" "devops_key" {
   key_name   = "devops-key"
-  public_key = file("${path.module}/devops-key.pub")
+  public_key = var.ssh_public_key
 }
-
+variable "ssh_public_key" {
+  description = "Public key content for EC2 key pair"
+  type        = string
+}
 resource "aws_instance" "devops_ec2" {
   ami           = var.ami_id
   instance_type = var.instance_type
