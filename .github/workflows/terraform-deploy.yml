@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - main
-    paths:
+      paths:
       - 'labs/02-terraform-ec2-docker/**'
+  workflow_dispatch:
 
 jobs:
   apply:
+    name: Deploy
     runs-on: ubuntu-latest
     permissions:
       contents: read
