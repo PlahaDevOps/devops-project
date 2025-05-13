@@ -38,3 +38,4 @@ resource "aws_eip" "devops_eip" {
 output "public_ip" {
   value = aws_eip.devops_eip.public_ip
 }# test deploy trigger
+# trigger CI
