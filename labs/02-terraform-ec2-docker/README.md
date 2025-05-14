@@ -94,11 +94,12 @@ ssh -i ~/.ssh/<your-key>.pem ec2-user@<public-ip>
 ```bash
 docker --version
 sudo systemctl status docker
-
-To test Docker:
-sudo docker run hello-world
 ```
 
+To test Docker:
+```bash
+sudo docker run hello-world
+```
 ---
 
 ## Destroy Resources
