@@ -17,7 +17,8 @@ This repository contains hands-on DevOps labs and configurations as I learn and 
 
 ## 🛠 Tech Stack
 
-- Docker, Kubernetes, Minikube
+- Docker
+- Kubernetes + Minikube
 - Terraform
 - GitHub Actions
 - YAML, Bash
