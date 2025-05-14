@@ -1,5 +1,10 @@
 # 🛠️ Terraform EC2 + Docker Lab (`02-terraform-ec2-docker`)
 
+> **Lab ID:** `02-terraform-ec2-docker`  
+> **Category:** Terraform + AWS  
+> **Level:** Beginner to Intermediate  
+> **Objective:** Provision an EC2 instance and install Docker via Terraform.
+
 This lab demonstrates how to use **Terraform** to provision an **EC2 instance** on AWS, set up **SSH access** using a public key, and install **Docker** via a cloud-init script.
 
 ---
@@ -107,3 +112,7 @@ sudo docker run hello-world
 ```bash
 terraform destroy -var-file="terraform.tfvars"
 ```
+
+## 🔗 Next Lab
+
+→ [03-ci-cd-pipelines](../03-ci-cd-pipelines) to build automated pipelines for provisioning and deployment.
