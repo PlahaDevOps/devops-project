@@ -29,3 +29,6 @@ This lab set explores core Kubernetes objects and features using Nginx.
 Apply any file with:
 ```bash
 kubectl apply -f <file-path>
+
+Example:
+kubectl apply -f nginx-deployment.yaml
