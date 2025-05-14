@@ -16,27 +16,29 @@ This lab demonstrates how to automate infrastructure and container workflows usi
 
 ## 📁 Lab Structure
 
-labs/03-ci-cd-pipelines/
-├── README.md
-├── workflows/
-│   ├── terraform-ci.yml
-│   ├── terraform-deploy.yml
-│   └── terraform-destroy.yml
-
 
 > 🗂 These files are **reference copies** of the live workflows under `.github/workflows/`.
+## 📁 Lab Structure
 
----
+```
+labs/03-ci-cd-pipelines/
+├── README.md
+└── workflows/
+    ├── terraform-ci.yml
+    ├── terraform-deploy.yml
+    └── terraform-destroy.yml
+```
 
 ## ⚙️ Live Workflows
 
 Your actual CI/CD pipelines are active under:
 
+```
 .github/workflows/
 ├── terraform-ci.yml
 ├── terraform-deploy.yml
 └── terraform-destroy.yml
-
+```
 
 These are connected to the infrastructure code in:
 
