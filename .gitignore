@@ -12,6 +12,7 @@ __pycache__/
 *.tfstate
 *.tfstate.backup
 .terraform/
+labs/02-terraform-ec2-docker/tfplan
 
 # Docker
 *.env
@@ -20,14 +21,22 @@ docker-compose.override.yml
 # Kubernetes
 *.yaml.swp
 
-# Node
+# Helm
+*.tgz
+charts/
+
+# Node.js
 node_modules/
 
-# IDE
+# IDE/Editor configs
 .vscode/
 .idea/
 
+# CI/CD & script leftovers
+*.retry
+*.bak
+*.tmp
+*.swp
+
 # Others
 .env
-
-labs/02-terraform-ec2-docker/tfplan
